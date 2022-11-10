@@ -1,5 +1,5 @@
 // pages/main-video/main-video.js
-import { hxRequest } from "../../services/index"
+import { getTopMv } from "../../services/vedio"
 
 Page({
   data: {
@@ -7,13 +7,13 @@ Page({
   },
   onLoad() {
     // 发送网络请求
-    hxRequest.get({
-      url: '/top/mv',
-      data: {
-        limit: 20,
-        offset: 0
-      }
-    }).then(res => {
+    this.fetchTopMV()
+  },
+  
+  // 发送网络请求的方法
+  fetchTopMV() {
+    // 发送网络请求
+    getTopMv().then(res => {
       this.setData({ videoList: res.data })
     })
   }
