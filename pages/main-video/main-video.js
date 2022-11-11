@@ -1,5 +1,5 @@
 // pages/main-video/main-video.js
-import { getTopMv } from "../../services/vedio"
+import { getTopMv } from "../../services/video"
 
 Page({
   data: {
@@ -11,10 +11,12 @@ Page({
   },
   
   // 发送网络请求的方法
-  fetchTopMV() {
+  async fetchTopMV() {
     // 发送网络请求
-    getTopMv().then(res => {
-      this.setData({ videoList: res.data })
-    })
+    // getTopMv().then(res => {
+    //   this.setData({ videoList: res.data })
+    // })
+    const res = await getTopMv()
+    this.setData({ videoList: res.data })
   }
 })
