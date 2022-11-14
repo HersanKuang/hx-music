@@ -17,6 +17,8 @@ Page({
     // getTopMv().then(res => {
     //   this.setData({ videoList: res.data })
     // })
+
+    // 请求歌曲数据
     const res = await getTopMv(this.data.videoList.length)
     const newVideoList = [...this.data.videoList, ...res.data]
     this.setData({ videoList: newVideoList })
@@ -28,5 +30,17 @@ Page({
     // 判断是否有更多的数据，最多50条
     if (!this.data.hasMore) return
     this.fetchTopMV()
+  },
+  // 下拉刷新的监听
+  onPullDownRefresh() {
+    // 1.清空之前的数据
+    this.setData({ videoList: [] })
+    this.data.hasMore = true
+
+    // 2.重新请求数据
+    this.fetchTopMV().then(() => {
+      // 停止下拉刷新
+      wx.stopPullDownRefresh()
+    })
   }
 })

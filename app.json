@@ -4,7 +4,7 @@
     "pages/main-video/main-video"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "HXMusic",
     "navigationBarTextStyle": "black"
