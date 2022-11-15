@@ -1,0 +1,20 @@
+<!-- 1.video组件播放视频 -->
+<video
+	class="video"
+	src="{{mvUrl}}"
+	autoplay
+	danmu-list="{{danmuList}}"
+/>
+
+<view class="info">
+	<view>{{mvInfo.artistName}}</view>
+</view>
+
+<view class="related-video">
+	<block wx:for="{{relatedVideo}}" wx:key="vid">
+		<view class="item">
+			<image src="{{item.coverUrl}}" mode="widthFix"></image>
+			<view>{{item.title}}</view>
+		</view>
+	</block>
+</view>
