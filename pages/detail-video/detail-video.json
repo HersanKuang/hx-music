@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "video-item2": "/components/video-item2/video-item2"
+  }
 }

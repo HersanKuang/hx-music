@@ -1,20 +1,29 @@
+<wxs src="../../utils/format.wxs" module="format"></wxs>
 <!-- 1.video组件播放视频 -->
 <video
 	class="video"
 	src="{{mvUrl}}"
 	autoplay
 	danmu-list="{{danmuList}}"
+	referrer-policy="origin"
 />
 
-<view class="info">
-	<view>{{mvInfo.artistName}}</view>
-</view>
+<scroll-view class="content" scroll-y>
+	<view class="info">
+    <view class="title">{{ mvInfo.name }}</view>
+		<view class="desc">{{mvInfo.artistName}}</view>
+    <view class="other">
+      <text class="play-count">{{format.formatCount(mvInfo.playCount)}}次播放 - </text>
+      <text class="publish-time">{{mvInfo.publishTime}}</text>
+    </view>
+	</view>
 
-<view class="related-video">
-	<block wx:for="{{relatedVideo}}" wx:key="vid">
-		<view class="item">
-			<image src="{{item.coverUrl}}" mode="widthFix"></image>
-			<view>{{item.title}}</view>
-		</view>
-	</block>
-</view>
+	<view class="recommend">
+    <view class="title">推荐视频</view>
+		<view class="video-list">
+      <block wx:for="{{relatedVideo}}" wx:key="vid">
+        <video-item2 itemInfo="{{item}}"></video-item2>
+      </block>
+    </view>
+	</view>
+</scroll-view>
