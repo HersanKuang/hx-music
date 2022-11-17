@@ -1,1 +1,10 @@
 /* pages/main-music/main-music.wxss */
+page {
+	background-color: #fafafa;
+
+	--search-background-color: #fff;
+}
+
+/* .van-search__content {
+	background-color: #fff !important;
+} */
