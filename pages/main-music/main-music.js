@@ -44,5 +44,8 @@ Page({
     // 获取Image组件的高度
     const res = await querySelectThrottle('.banner-image')
     this.setData({ bannerHeight: res[0].height })
+  },
+  onRecommendMoreClick() {
+    console.log('----');
   }
 })

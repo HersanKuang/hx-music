@@ -13,6 +13,7 @@
   circular
   indicator-dots
   style="height: {{bannerHeight}}px"
+  referrer-policy="origin"
 >
   <block wx:for="{{banners}}" wx:key="targetId">
     <swiper-item class="item">
@@ -25,3 +26,12 @@
     </swiper-item>
   </block>
 </swiper>
+
+<!-- 3.推荐歌曲的展示 -->
+<view class="recommend">
+  <area-header title="歌曲推荐" bind:moreclick="onRecommendMoreClick"/>
+</view>
+
+<!-- <view class="ranking">
+  <area-header title="巅峰榜" hasMore="{{false}}"/>
+</view> -->
