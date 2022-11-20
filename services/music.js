@@ -8,3 +8,12 @@ export function getMusicBanner(type = 0) {
 		}
 	})
 }
+
+export function getPlaylistDetail(id) {
+  return hxRequest.get({
+    url: '/playlist/detail',
+    data: {
+      id
+    }
+  })
+}

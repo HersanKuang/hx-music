@@ -20,5 +20,6 @@
 }
 
 .header .more .text {
-	font-size: 28rpx;
+  padding-right: 4rpx;
+	font-size: 30rpx;
 }

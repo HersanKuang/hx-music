@@ -1,5 +1,5 @@
 // pages/main-music/main-music.js
-import { getMusicBanner } from "../../services/music"
+import { getMusicBanner, getPlaylistDetail } from "../../services/music"
 import { querySelect } from "../../utils/query-select"
 import { hxthrottle } from "../../utils/throttle"
 
@@ -9,27 +9,35 @@ Page({
   data: {
     searchValue: '',
     banners: [],
-    bannerHeight: 150
+    bannerHeight: 150,
+    recommendSongs: []
   },
   onLoad() {
     this.fetchMusicBanner()
+    this.fetchRecommendSongs()
   },
   // 网络请求的封装
   async fetchMusicBanner() {
     const res = await getMusicBanner()
     this.setData({ banners: res.banners })
   },
+  async fetchRecommendSongs() {
+    const res = await getPlaylistDetail(3778678)
+    const playlist = res.playlist
+    const recommendSongs = playlist.tracks.slice(0, 6)
+    this.setData({ recommendSongs })
+  },
   // 分享功能
   onShareAppMessage() {
     return {
-      title: '啾咪音乐',
+      title: '解忧杂货铺',
       path: 'pages/main-music/main-music',
       imageUrl: 'https://hersan.cn/%E5%9B%BE%E7%89%87/%E7%B2%BE%E7%BE%8E%E5%9B%BE%E7%89%87/%E4%B8%87%E5%9C%A3.jpg'
     }
   },
   onShareTimeline() {
     return {
-      title: '啾咪音乐',
+      title: '解忧杂货铺',
       path: 'pages/main-music/main-music',
       imageUrl: 'https://hersan.cn/%E5%9B%BE%E7%89%87/%E7%B2%BE%E7%BE%8E%E5%9B%BE%E7%89%87/%E4%B8%87%E5%9C%A3.jpg'
     }
