@@ -1,31 +1,43 @@
 // pages/main-music/main-music.js
-import { getMusicBanner, getPlaylistDetail } from "../../services/music"
+import { getMusicBanner, getSongMenuList } from "../../services/music"
+import recommendStore from "../../store/recommendStore"
 import { querySelect } from "../../utils/query-select"
 import { hxthrottle } from "../../utils/throttle"
 
 const querySelectThrottle = hxthrottle(querySelect)
+const app = getApp()
 
 Page({
   data: {
     searchValue: '',
     banners: [],
     bannerHeight: 150,
-    recommendSongs: []
+    screenWidth: 375,
+    recommendSongs: [],
+    // 歌单数据
+    hotMenuList: []
   },
   onLoad() {
     this.fetchMusicBanner()
-    this.fetchRecommendSongs()
+    this.fetchSongMenuList()
+
+    // 发起action
+    recommendStore.onState('recommendSongs', (value) => {
+      this.setData({ recommendSongs: value.slice(0, 6) })
+    })
+    recommendStore.dispatch('fetchRecommendSongsAction')
+
+    // 获取屏幕的尺寸
+    this.setData({ screenWidth: app.globalData.screenWidth })
   },
   // 网络请求的封装
   async fetchMusicBanner() {
     const res = await getMusicBanner()
     this.setData({ banners: res.banners })
   },
-  async fetchRecommendSongs() {
-    const res = await getPlaylistDetail(3778678)
-    const playlist = res.playlist
-    const recommendSongs = playlist.tracks.slice(0, 6)
-    this.setData({ recommendSongs })
+  async fetchSongMenuList() {
+    const res = await getSongMenuList()
+    this.setData({ hotMenuList: res.playlists })
   },
   // 分享功能
   onShareAppMessage() {
@@ -54,6 +66,8 @@ Page({
     this.setData({ bannerHeight: res[0].height })
   },
   onRecommendMoreClick() {
-    console.log('----');
+    wx.navigateTo({
+      url: '/pages/detail-song/detail-song',
+    })
   }
 })

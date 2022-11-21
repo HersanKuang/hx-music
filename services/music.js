@@ -17,3 +17,14 @@ export function getPlaylistDetail(id) {
     }
   })
 }
+
+export function getSongMenuList(cat = '全部', limit = 6, offset = 0) {
+  return hxRequest.get({
+    url: '/top/playlist',
+    data: {
+			cat,
+			limit,
+			offset
+    }
+  })
+}

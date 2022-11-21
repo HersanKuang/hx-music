@@ -3,12 +3,13 @@
     "pages/main-music/main-music",
     "pages/main-video/main-video",
     "pages/detail-video/detail-video",
-    "pages/detail-search/detail-search"
+    "pages/detail-search/detail-search",
+    "pages/detail-song/detail-song"
   ],
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "HXMusic",
+    "navigationBarTitleText": "解忧杂货铺",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

@@ -17,3 +17,22 @@ page {
 .banner .item .banner-image {
 	width: 100%;
 }
+
+/* 歌单样式 */
+.hot-list {
+	/* flex布局 padding-right会被吞掉 */
+	/* display: flex; */
+	margin-left: -24rpx;
+	white-space: nowrap;
+}
+
+.hot-list .item {
+	/* flex-shrink: 0; */
+	display: inline-block;
+	width: 220rpx;
+	margin-left: 24rpx;
+}
+
+.hot-list .item:last-child {
+	margin-right: 24rpx;
+}

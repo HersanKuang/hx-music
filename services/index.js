@@ -1,3 +1,5 @@
+import { baseURL } from "./config"
+
 // 封装成类 -> 实例
 class HXRequest {
   constructor(baseURL) {
@@ -24,4 +26,4 @@ class HXRequest {
   }
 }
 
-export const hxRequest = new HXRequest("http://codercba.com:9002")
+export const hxRequest = new HXRequest(baseURL)
