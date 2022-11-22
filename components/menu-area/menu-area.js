@@ -24,7 +24,9 @@ Component({
   },
   methods: {
     onMenuMoreClick() {
-      console.log('-----');
+      wx.navigateTo({
+        url: '/pages/detail-menu/detail-menu',
+      })
     }
   }
 })

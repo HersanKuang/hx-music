@@ -1,0 +1,22 @@
+/* pages/detail-menu/detail-menu.wxss */
+page {
+	box-sizing: border-box;
+	padding: 20rpx;
+}
+
+.all-menu .cat {
+  margin-top: 20rpx;
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.list {
+	display: flex;
+	justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 4rpx;
+}
+
+.list .iten {
+	width: 49%;
+}
