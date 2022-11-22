@@ -1,0 +1,19 @@
+/* components/menu-area/menu-area.wxss */
+/* 歌单样式 */
+.list {
+	/* flex布局 padding-right会被吞掉 */
+	/* display: flex; */
+	margin-left: -24rpx;
+	white-space: nowrap;
+}
+
+.list .item {
+	/* flex-shrink: 0; */
+	display: inline-block;
+	width: 220rpx;
+	margin-left: 24rpx;
+}
+
+.list .item:last-child {
+	margin-right: 24rpx;
+}

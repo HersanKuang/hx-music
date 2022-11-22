@@ -5,17 +5,16 @@ import { querySelect } from "../../utils/query-select"
 import { hxthrottle } from "../../utils/throttle"
 
 const querySelectThrottle = hxthrottle(querySelect)
-const app = getApp()
 
 Page({
   data: {
     searchValue: '',
     banners: [],
     bannerHeight: 150,
-    screenWidth: 375,
     recommendSongs: [],
     // 歌单数据
-    hotMenuList: []
+    hotMenuList: [],
+    recMenuList: []
   },
   onLoad() {
     this.fetchMusicBanner()
@@ -26,9 +25,6 @@ Page({
       this.setData({ recommendSongs: value.slice(0, 6) })
     })
     recommendStore.dispatch('fetchRecommendSongsAction')
-
-    // 获取屏幕的尺寸
-    this.setData({ screenWidth: app.globalData.screenWidth })
   },
   // 网络请求的封装
   async fetchMusicBanner() {
@@ -36,8 +32,12 @@ Page({
     this.setData({ banners: res.banners })
   },
   async fetchSongMenuList() {
-    const res = await getSongMenuList()
-    this.setData({ hotMenuList: res.playlists })
+    getSongMenuList().then(res => {
+      this.setData({ hotMenuList: res.playlists })
+    })
+    getSongMenuList('华语').then(res => {
+      this.setData({ recMenuList: res.playlists })
+    })
   },
   // 分享功能
   onShareAppMessage() {
