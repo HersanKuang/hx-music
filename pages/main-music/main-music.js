@@ -1,6 +1,7 @@
 // pages/main-music/main-music.js
 import { getMusicBanner, getSongMenuList } from "../../services/music"
 import recommendStore from "../../store/recommendStore"
+import rankingStore, { rankingsMap } from "../../store/rankingStore"
 import { querySelect } from "../../utils/query-select"
 import { hxthrottle } from "../../utils/throttle"
 
@@ -14,17 +15,26 @@ Page({
     recommendSongs: [],
     // 歌单数据
     hotMenuList: [],
-    recMenuList: []
+    recMenuList: [],
+    // 巅峰榜数据
+    rankingInfos: {}
   },
   onLoad() {
     this.fetchMusicBanner()
     this.fetchSongMenuList()
 
     // 发起action
-    recommendStore.onState('recommendSongs', (value) => {
-      this.setData({ recommendSongs: value.slice(0, 6) })
-    })
+    recommendStore.onState('recommendSongs', this.handleRecommendSongs)
     recommendStore.dispatch('fetchRecommendSongsAction')
+
+    for (const key in rankingsMap) {
+      rankingStore.onState(key, this.getRankingHanlder(key))
+    }
+    // rankingStore.onState('newRanking', this.getRankingHanlder('newRanking'))
+    // rankingStore.onState('originRanking', this.getRankingHanlder('originRanking'))
+    // rankingStore.onState('upRanking', this.getRankingHanlder('upRanking'))
+
+    rankingStore.dispatch('fetchRankingDataAction')
   },
   // 网络请求的封装
   async fetchMusicBanner() {
@@ -69,5 +79,24 @@ Page({
     wx.navigateTo({
       url: '/pages/detail-song/detail-song',
     })
+  },
+
+  // ============================= 从Store中获取数据 =============================
+  handleRecommendSongs(value) {
+    this.setData({ recommendSongs: value.slice(0, 6) })
+  },
+
+  getRankingHanlder(ranking) {
+    return value => {
+      const newRankingInfos = { ...this.data.rankingInfos, [ranking]: value }
+      this.setData({ rankingInfos: newRankingInfos })
+    }
+  },
+
+  onUnload() {
+    recommendStore.offState('recommendSongs', this.handleRecommendSongs)
+    rankingStore.offState('newRanking', this.handleNewRanking)
+    rankingStore.offState('originRanking', this.handleOriginRanking)
+    rankingStore.offState('upRanking', this.handleUpRanking)
   }
 })

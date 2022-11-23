@@ -37,10 +37,16 @@
   </view>
 </view>
 
-<!-- 4.热门歌单 -->
+<!-- 4.歌单信息 -->
 <menu-area title="热门歌单" menuList="{{hotMenuList}}"/>
 <menu-area title="推荐歌单" menuList="{{recMenuList}}"/>
 
+<!-- 5.巅峰榜 -->
 <view class="ranking">
   <area-header title="巅峰榜" hasMore="{{false}}"/>
+  <view class="ranking-list">
+    <block wx:for="{{rankingInfos}}" wx:key="id">
+      <ranking-item itemData="{{item}}"/>
+    </block>
+  </view>
 </view>
