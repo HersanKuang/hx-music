@@ -1,2 +1,7 @@
 <!--pages/detail-song/detail-song.wxml-->
-<text>pages/detail-song/detail-song.wxml</text>
+<view class="title">{{songInfo.name}}</view>
+<view class="song-list">
+	<block wx:for="{{songInfo.tracks}}" wx:key="id">
+		<view>{{item.name}}</view>
+	</block>
+</view>
