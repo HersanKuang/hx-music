@@ -3,12 +3,12 @@ import { getPlaylistDetail } from "../services/music"
 
 const recommendStore = new HXEventStore({
 	state: {
-		recommendSongs: []
+		recommendSongInfo: {}
 	},
 	actions: {
 		fetchRecommendSongsAction(ctx) {
 			getPlaylistDetail(3778678).then(res => {
-				ctx.recommendSongs = res.playlist.tracks
+				ctx.recommendSongInfo = res.playlist
 			})
 		}
 	}

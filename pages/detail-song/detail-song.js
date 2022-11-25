@@ -1,5 +1,6 @@
 // pages/detail-song/detail-song.js
 import rankingStore from "../../store/rankingStore"
+import recommendStore from "../../store/recommendStore"
 
 Page({
   data: {
@@ -19,6 +20,9 @@ Page({
       const key = options.key
       this.data.key = key
       rankingStore.onState(key, this.handleRanking)
+    } else if (type === 'recommend') {
+      this.data.key = 'recommendSongInfo'
+      recommendStore.onState(this.data.key, this.handleRanking)
     }
   },
   handleRanking(value) {
@@ -30,6 +34,8 @@ Page({
   onUnload() {
     if (this.data.type === 'ranking') {
       rankingStore.offState(this.data.key, this.handleRanking)
+    } else if (this.data.type === 'recommend') {
+      recommendStore.offState(this.data.key, this.handleRanking)
     }
   }
 })

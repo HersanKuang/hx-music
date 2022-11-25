@@ -24,7 +24,7 @@ Page({
     this.fetchSongMenuList()
 
     // 发起action
-    recommendStore.onState('recommendSongs', this.handleRecommendSongs)
+    recommendStore.onState('recommendSongInfo', this.handleRecommendSongs)
     recommendStore.dispatch('fetchRecommendSongsAction')
 
     for (const key in rankingsMap) {
@@ -77,13 +77,14 @@ Page({
   },
   onRecommendMoreClick() {
     wx.navigateTo({
-      url: '/pages/detail-song/detail-song',
+      url: '/pages/detail-song/detail-song?type=recommend',
     })
   },
 
   // ============================= 从Store中获取数据 =============================
   handleRecommendSongs(value) {
-    this.setData({ recommendSongs: value.slice(0, 6) })
+    if (!value.tracks) return
+    this.setData({ recommendSongs: value.tracks.slice(0, 6) })
   },
 
   getRankingHanlder(ranking) {
@@ -94,7 +95,7 @@ Page({
   },
 
   onUnload() {
-    recommendStore.offState('recommendSongs', this.handleRecommendSongs)
+    recommendStore.offState('recommendSongInfo', this.handleRecommendSongs)
     rankingStore.offState('newRanking', this.handleNewRanking)
     rankingStore.offState('originRanking', this.handleOriginRanking)
     rankingStore.offState('upRanking', this.handleUpRanking)
