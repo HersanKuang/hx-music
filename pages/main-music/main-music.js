@@ -11,12 +11,13 @@ Page({
   data: {
     searchValue: '',
     banners: [],
-    bannerHeight: 150,
+    bannerHeight: 0,
     recommendSongs: [],
     // 歌单数据
     hotMenuList: [],
     recMenuList: [],
     // 巅峰榜数据
+    isRankingData: false,
     rankingInfos: {}
   },
   onLoad() {
@@ -89,15 +90,19 @@ Page({
 
   getRankingHanlder(ranking) {
     return value => {
+      if (!value.name) return
       const newRankingInfos = { ...this.data.rankingInfos, [ranking]: value }
-      this.setData({ rankingInfos: newRankingInfos })
+      this.setData({
+        rankingInfos: newRankingInfos,
+        isRankingData: true
+      })
     }
   },
 
   onUnload() {
     recommendStore.offState('recommendSongInfo', this.handleRecommendSongs)
-    rankingStore.offState('newRanking', this.handleNewRanking)
-    rankingStore.offState('originRanking', this.handleOriginRanking)
-    rankingStore.offState('upRanking', this.handleUpRanking)
+    rankingStore.offState('newRanking', this.getRankingHanlder)
+    rankingStore.offState('originRanking', this.getRankingHanlder)
+    rankingStore.offState('upRanking', this.getRankingHanlder)
   }
 })

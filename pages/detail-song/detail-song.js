@@ -1,11 +1,13 @@
 // pages/detail-song/detail-song.js
 import rankingStore from "../../store/rankingStore"
 import recommendStore from "../../store/recommendStore"
+import { getPlaylistDetail } from "../../services/music"
 
 Page({
   data: {
     type: 'ranking',
     key: 'newRanking',
+    id: '',
     songInfo: {}
   },
   onLoad(options) {
@@ -13,7 +15,7 @@ Page({
     // type: ranking -> 榜单数据
     // type: recommend -> 推荐数据
     const type = options.type
-    this.data.type = type
+    this.setData({ type })
 
     // 获取store中榜单数据
     if (type === 'ranking') {
@@ -23,8 +25,18 @@ Page({
     } else if (type === 'recommend') {
       this.data.key = 'recommendSongInfo'
       recommendStore.onState(this.data.key, this.handleRanking)
+    } else if (type === 'menu') {
+      this.data.id = options.id
+      this.fetchMenuSongInfo()
     }
   },
+
+  // 网络请求
+  async fetchMenuSongInfo() {
+    const res = await getPlaylistDetail(this.data.id)
+    this.setData({ songInfo: res.playlist })
+  },
+
   handleRanking(value) {
     this.setData({ songInfo: value })
     wx.setNavigationBarTitle({
