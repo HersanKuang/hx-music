@@ -1,0 +1,3 @@
+<!--pages/music-player/music-player.wxml-->
+<view>{{currentSong.name}}</view>
+<image src="{{currentSong.al.picUrl}}" mode="widthFix"></image>

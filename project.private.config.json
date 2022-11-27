@@ -29,6 +29,13 @@
           "query": "type=menu&id=2466320666",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "歌曲播放",
+          "pathName": "pages/music-player/music-player",
+          "query": "id=1500569811",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

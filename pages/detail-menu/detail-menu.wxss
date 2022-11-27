@@ -1,7 +1,7 @@
 /* pages/detail-menu/detail-menu.wxss */
 page {
 	box-sizing: border-box;
-	padding: 20rpx;
+	padding: 0 20rpx;
 }
 
 .all-menu .cat {

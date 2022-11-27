@@ -5,7 +5,8 @@
     "pages/detail-video/detail-video",
     "pages/detail-search/detail-search",
     "pages/detail-song/detail-song",
-    "pages/detail-menu/detail-menu"
+    "pages/detail-menu/detail-menu",
+    "pages/music-player/music-player"
   ],
   "window": {
     "backgroundTextStyle": "dark",
