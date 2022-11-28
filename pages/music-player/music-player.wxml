@@ -1,3 +1,9 @@
 <!--pages/music-player/music-player.wxml-->
-<view>{{currentSong.name}}</view>
-<image src="{{currentSong.al.picUrl}}" mode="widthFix"></image>
+<!-- 1.背景展示 -->
+<image class="bg-image" src="{{currentSong.al.picUrl}}" mode="aspectFill"></image>
+<view class="bg-cover"></view>
+
+<!-- 2.自定义导航栏 -->
+<nav-bar>
+	<text slot="center">哈哈哈</text>
+</nav-bar>
