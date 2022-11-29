@@ -12,3 +12,18 @@
 	background-color: rgba(0,0,0,.3);
 	backdrop-filter: blur(20px);
 }
+
+/* 导航中的center */
+.tabs {
+	display: flex;
+	font-size: 28rpx;
+	color: #aaa;
+}
+
+.tabs .divider {
+	margin: 0 8rpx;
+}
+
+.tabs .active {
+	color: #fff;
+}

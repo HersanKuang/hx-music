@@ -1,7 +1,6 @@
 /* components/nav-bar/nav-bar.wxss */
 .nav {
 	display: flex;
-	height: 44px;
 	color: white;
 }
 .left, .right, .center {

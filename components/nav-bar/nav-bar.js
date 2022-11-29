@@ -5,6 +5,9 @@ Component({
   options: {
     multipleSlots: true
   },
+  data: {
+    navBarHeight: app.globalData.navBarHeight
+  },
   properties: {
     title: {
       type: String,

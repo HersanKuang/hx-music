@@ -1,13 +1,20 @@
 // pages/music-player/music-player.js
 import { getSongDetail, getSongLyric } from '../../services/player'
 
+const app = getApp()
+
 Page({
   data: {
+    currentPage: 0,
+    contentHeight: 0,
     id: 0,
     currentSong: {},
     lrcString: ''
   },
   onLoad(options) {
+    // 0.获取设备信息
+    this.setData({ contentHeight: app.globalData.contentHeight })
+
     // 1.获取传入的id
     const id = options.id
     this.setData({ id })
@@ -21,5 +28,10 @@ Page({
     getSongLyric(id).then(res => {
       this.setData({ lrcString: res.lrc.lyric })
     })
+  },
+
+  // ============================= 事件监听 =============================
+  onSwiperChange(event) {
+    this.setData({ currentPage: event.detail.current })
   }
 })
