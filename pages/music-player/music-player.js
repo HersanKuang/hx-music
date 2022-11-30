@@ -5,6 +5,7 @@ const app = getApp()
 
 Page({
   data: {
+    pageTitles: ['歌曲', '歌词'],
     currentPage: 0,
     contentHeight: 0,
     id: 0,
@@ -33,5 +34,9 @@ Page({
   // ============================= 事件监听 =============================
   onSwiperChange(event) {
     this.setData({ currentPage: event.detail.current })
+  },
+  onNavTabItemTap(event) {
+    const index = event.currentTarget.dataset.index
+    this.setData({ currentPage: index })
   }
 })
