@@ -34,16 +34,25 @@
 			/>
 		</view>
 		<view class="info">
-			歌曲信息
+			<view class="name">{{currentSong.name}}</view>
+			<view class="singer">{{currentSong.ar[0].name}}</view>
 		</view>
 		<view class="lyric">
 			一句歌词
 		</view>
 		<view class="progress">
-			歌曲的进度和时长
+			<slider class="slider" block-size="12"/>
+			<view class="time">
+				<view class="current">02:22</view>
+				<view class="duration">04:22</view>
+			</view>
 		</view>
-		<view class="control">
-			歌曲控制
+		<view class="controls">
+			<image class="btn mode" src="/assets/images/player/play_order.png"/>
+			<image class="btn prev" src="/assets/images/player/play_prev.png"/>
+			<image class="btn play" src="/assets/images/player/play_pause.png"/>
+			<image class="btn next" src="/assets/images/player/play_next.png"/>
+			<image class="btn list" src="/assets/images/player/play_music.png"/>
 		</view>
 	</swiper-item>
 

@@ -41,3 +41,63 @@
 .music .album {
 	flex: 1;
 }
+
+.music .album .image {
+	width: 100%;
+	border-radius: 12rpx;
+}
+
+.music .info .name {
+	font-size: 40rpx;
+	font-weight: 700;
+}
+
+.music .info .singer {
+	margin-top: 10rpx;
+}
+
+.music .lyric {
+	text-align: center;
+	margin: 16rpx 0;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.music .progress {
+	margin: 12rpx 0;
+}
+
+.music .progress .slider {
+	margin: 16rpx 8rpx 10rpx 18rpx;
+}
+
+.music .progress .time {
+	display: flex;
+	justify-content: space-between;
+	font-size: 24rpx;
+}
+
+.music .controls {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 12rpx 0;
+}
+
+.music .controls .btn {
+	width: 60rpx;
+	height: 60rpx;
+	margin-bottom: 10rpx;
+}
+
+.music .controls .btn.mode {
+	width: 80rpx;
+	height: 80rpx;
+}
+
+.music .controls .btn.play {
+	width: 120rpx;
+	height: 120rpx;
+}
