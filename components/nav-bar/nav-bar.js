@@ -6,6 +6,7 @@ Component({
     multipleSlots: true
   },
   data: {
+    statusHeight: 20,
     navBarHeight: app.globalData.navBarHeight
   },
   properties: {
@@ -13,9 +14,6 @@ Component({
       type: String,
       value: '导航标题'
     }
-  },
-  data: {
-    statusHeight: 20
   },
   lifetimes: {
     attached() {

@@ -27,7 +27,11 @@
 >
 	<swiper-item class="music">
 		<view class="album">
-			封面图片
+			<image
+				class="image"
+				src="{{currentSong.al.picUrl}}"
+				mode="widthFix"
+			/>
 		</view>
 		<view class="info">
 			歌曲信息
