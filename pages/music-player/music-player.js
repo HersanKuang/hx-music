@@ -3,6 +3,9 @@ import { getSongDetail, getSongLyric } from '../../services/player'
 
 const app = getApp()
 
+// 创建播放器
+const audioContext = wx.createInnerAudioContext()
+
 Page({
   data: {
     pageTitles: ['歌曲', '歌词'],
@@ -20,15 +23,20 @@ Page({
     const id = options.id
     this.setData({ id })
 
-    // 2.根据id获取歌曲的详情
+    // 2.请求歌曲相关的数据
+    // 2.1.根据id获取歌曲的详情
     getSongDetail(id).then(res => {
       this.setData({ currentSong: res.songs[0] })
     })
 
-    // 3.根据id获取歌词信息
+    // 2.2.根据id获取歌词信息
     getSongLyric(id).then(res => {
       this.setData({ lrcString: res.lrc.lyric })
     })
+
+    // 3.播放当前的歌曲
+    audioContext.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
+    audioContext.autoplay = true
   },
 
   // ============================= 事件监听 =============================
