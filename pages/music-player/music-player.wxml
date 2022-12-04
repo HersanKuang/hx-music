@@ -1,4 +1,6 @@
 <!--pages/music-player/music-player.wxml-->
+<wxs src="/utils/format.wxs" module="format"></wxs>
+
 <!-- 1.背景展示 -->
 <image class="bg-image" src="{{currentSong.al.picUrl}}" mode="aspectFill"></image>
 <view class="bg-cover"></view>
@@ -41,10 +43,10 @@
 			一句歌词
 		</view>
 		<view class="progress">
-			<slider class="slider" block-size="12"/>
+			<slider class="slider" block-size="12" value="{{sliderValue}}"/>
 			<view class="time">
-				<view class="current">02:22</view>
-				<view class="duration">04:22</view>
+				<view class="current">{{format.formatTime(currentTime)}}</view>
+				<view class="duration">{{format.formatTime(durationTime)}}</view>
 			</view>
 		</view>
 		<view class="controls">
