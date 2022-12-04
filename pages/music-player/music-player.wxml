@@ -43,7 +43,13 @@
 			一句歌词
 		</view>
 		<view class="progress">
-			<slider class="slider" block-size="12" value="{{sliderValue}}"/>
+			<slider
+				class="slider"
+				block-size="12"
+				value="{{sliderValue}}"
+				bindchange="onSliderChange"
+				bindchanging="onSliderChanging"
+			/>
 			<view class="time">
 				<view class="current">{{format.formatTime(currentTime)}}</view>
 				<view class="duration">{{format.formatTime(durationTime)}}</view>

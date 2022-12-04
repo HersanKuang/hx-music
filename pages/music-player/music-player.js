@@ -17,7 +17,8 @@ Page({
 
     currentTime: 0,
     durationTime: 0,
-    sliderValue: 0
+    sliderValue: 0,
+    isSliderChanging: false
   },
   onLoad(options) {
     // 0.获取设备信息
@@ -47,12 +48,21 @@ Page({
 
     // 4.监听播放的进度
     audioContext.onTimeUpdate(() => {
-      // 1.记录当前的时间
-      this.setData({ currentTime: audioContext.currentTime * 1000 })
+      if (!this.data.isSliderChanging) {
+        // 1.记录当前的时间
+        this.setData({ currentTime: audioContext.currentTime * 1000 })
 
-      // 2.修改滑块的时间进度sliderValue
-      const sliderValue = this.data.currentTime / this.data.durationTime * 100
-      this.setData({ sliderValue })
+        // 2.修改滑块的时间进度sliderValue
+        const sliderValue = this.data.currentTime / this.data.durationTime * 100
+        this.setData({ sliderValue })
+      }
+    })
+    // 解决拖动进度条之后没有继续监听的bug
+    audioContext.onWaiting(() => {
+      audioContext.pause()
+    })
+    audioContext.onCanplay(() => {
+      audioContext.play()
     })
   },
 
@@ -63,5 +73,27 @@ Page({
   onNavTabItemTap(event) {
     const index = event.currentTarget.dataset.index
     this.setData({ currentPage: index })
+  },
+  onSliderChange(event) {
+    // 1.获取点击滑块位置对应的value
+    const value = event.detail.value
+
+    // 2.计算出要播放的位置的时间
+    const currentTime = value / 100 * this.data.durationTime
+
+    // 3.设置播放器，播放计算出的时间
+    audioContext.seek(currentTime / 1000)
+    this.setData({ currentTime, isSliderChanging: false })
+  },
+  onSliderChanging(event) {
+    // 1.获取滑动到的位置的value
+    const value = event.detail.value
+
+    // 2.根据当前的值，计算出对应的时间
+    const currentTime = value / 100 * this.data.durationTime
+    this.setData({ currentTime })
+
+    // 3.当前正在滑动
+    this.data.isSliderChanging = true
   }
 })
