@@ -20,7 +20,8 @@ Page({
     durationTime: 0,
     sliderValue: 0,
     isSliderChanging: false,
-    isWaiting: false
+    isWaiting: false,
+    isPlaying: true
   },
   onLoad(options) {
     // 0.获取设备信息
@@ -105,5 +106,15 @@ Page({
 
     // 3.当前正在滑动
     this.data.isSliderChanging = true
+  },
+
+  onPlayOrPauseTap() {
+    if (!audioContext.paused) {
+      audioContext.pause()
+      this.setData({ isPlaying: false })
+    } else {
+      audioContext.play()
+      this.setData({ isPlaying: true })
+    }
   }
 })

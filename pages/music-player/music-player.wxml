@@ -58,7 +58,11 @@
 		<view class="controls">
 			<image class="btn mode" src="/assets/images/player/play_order.png"/>
 			<image class="btn prev" src="/assets/images/player/play_prev.png"/>
-			<image class="btn play" src="/assets/images/player/play_pause.png"/>
+			<image
+				class="btn play"
+				src="/assets/images/player/play_{{isPlaying ? 'pause' : 'resume'}}.png"
+				bindtap="onPlayOrPauseTap"
+			/>
 			<image class="btn next" src="/assets/images/player/play_next.png"/>
 			<image class="btn list" src="/assets/images/player/play_music.png"/>
 		</view>
