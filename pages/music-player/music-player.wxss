@@ -18,6 +18,8 @@
 	display: flex;
 	font-size: 28rpx;
 	color: #aaa;
+	text-align: center;
+	height: 100%;
 }
 
 .tabs .divider {

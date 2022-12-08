@@ -1,5 +1,6 @@
 // pages/music-player/music-player.js
 import { getSongDetail, getSongLyric } from '../../services/player'
+import { parseLyric } from "../../utils/parse-lyric"
 import { hxthrottle } from '../../utils/throttle'
 
 const app = getApp()
@@ -14,7 +15,9 @@ Page({
     contentHeight: 0,
     id: 0,
     currentSong: {},
-    lrcString: '',
+    lyricInfos: [],
+    currentLyricText: '',
+    currentLyricIndex: -1,
 
     currentTime: 0,
     durationTime: 0,
@@ -42,7 +45,9 @@ Page({
 
     // 2.2.根据id获取歌词信息
     getSongLyric(id).then(res => {
-      this.setData({ lrcString: res.lrc.lyric })
+      const lrcString = res.lrc.lyric
+      const lyricInfos = parseLyric(lrcString)
+      this.setData({ lyricInfos })
     })
 
     // 3.播放当前的歌曲
@@ -52,9 +57,24 @@ Page({
     // 4.监听播放的进度
     const throttleUpdateProgress = hxthrottle(this.updateProgress, 500, { leading: false })
     audioContext.onTimeUpdate(() => {
+      // 1.更新歌曲的进度
       if (!this.data.isSliderChanging && !this.data.isWaiting) {
         throttleUpdateProgress()
       }
+
+      // 2.匹配正确歌词
+      if (!this.data.lyricInfos.length) return
+      let index = -1
+      for (let i in this.data.lyricInfos) {
+        const info = this.data.lyricInfos[i]
+        if (info.time > audioContext.currentTime * 1000) {
+          index = i - 1
+          break
+        }
+      }
+      if (index === this.data.currentLyricIndex) return
+      const currentLyricText = this.data.lyricInfos[index].text
+      this.setData({ currentLyricText, currentLyricIndex: index })
     })
     // 解决拖动进度条之后没有继续监听的bug
     audioContext.onWaiting(() => {
