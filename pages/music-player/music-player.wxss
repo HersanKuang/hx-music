@@ -107,3 +107,16 @@
 	width: 120rpx;
 	height: 120rpx;
 }
+
+/* 歌词样式 */
+.lyric-list {
+	color: #aaa;
+	font-size: 28rpx;
+	text-align: center;
+	height: 100%;
+}
+
+.lyric-list .item {
+	height: 35px;
+	line-height: 35px;
+}
