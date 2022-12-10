@@ -86,11 +86,12 @@ Page({
   },
   updateProgress() {
     // 1.记录当前的时间
-    this.setData({ currentTime: audioContext.currentTime * 1000 })
-
     // 2.修改滑块的时间进度sliderValue
     const sliderValue = this.data.currentTime / this.data.durationTime * 100
-    this.setData({ sliderValue })
+    this.setData({
+      currentTime: audioContext.currentTime * 1000,
+      sliderValue
+    })
   },
 
   // ============================= 事件监听 =============================

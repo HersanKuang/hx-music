@@ -41,6 +41,9 @@
 }
 
 .music .album {
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: space-around;
 	flex: 1;
 }
 
@@ -59,6 +62,7 @@
 }
 
 .music .lyric {
+	height: 20px;
 	text-align: center;
 	margin: 16rpx 0;
 
@@ -85,7 +89,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin: 12rpx 0;
+	margin: 12rpx 0 80rpx 0;
 }
 
 .music .controls .btn {

@@ -29,30 +29,33 @@
 >
 	<swiper-item class="music">
 		<view class="album">
+			<view></view>
 			<image
 				class="image"
 				src="{{currentSong.al.picUrl}}"
 				mode="widthFix"
 			/>
 		</view>
-		<view class="info">
-			<view class="name">{{currentSong.name}}</view>
-			<view class="singer">{{currentSong.ar[0].name}}</view>
-		</view>
-		<view class="lyric">
-			{{currentLyricText}}
-		</view>
-		<view class="progress">
-			<slider
-				class="slider"
-				block-size="12"
-				value="{{sliderValue}}"
-				bindchange="onSliderChange"
-				bindchanging="onSliderChanging"
-			/>
-			<view class="time">
-				<view class="current">{{format.formatTime(currentTime)}}</view>
-				<view class="duration">{{format.formatTime(durationTime)}}</view>
+		<view class="content">
+			<view class="info">
+				<view class="name">{{currentSong.name}}</view>
+				<view class="singer">{{currentSong.ar[0].name}}</view>
+			</view>
+			<view class="lyric">
+				{{currentLyricText}}
+			</view>
+			<view class="progress">
+				<slider
+					class="slider"
+					block-size="12"
+					value="{{sliderValue}}"
+					bindchange="onSliderChange"
+					bindchanging="onSliderChanging"
+				/>
+				<view class="time">
+					<view class="current">{{format.formatTime(currentTime)}}</view>
+					<view class="duration">{{format.formatTime(durationTime)}}</view>
+				</view>
 			</view>
 		</view>
 		<view class="controls">
