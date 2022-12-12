@@ -24,7 +24,9 @@ Page({
     sliderValue: 0,
     isSliderChanging: false,
     isWaiting: false,
-    isPlaying: true
+    isPlaying: true,
+
+    lyricScrollTop: 0
   },
   onLoad(options) {
     // 0.获取设备信息
@@ -73,8 +75,15 @@ Page({
         }
       }
       if (index === this.data.currentLyricIndex) return
+
+      // 3.获取歌词索引index和文本text
+      // 4.改变歌词滚动页面的位置
       const currentLyricText = this.data.lyricInfos[index].text
-      this.setData({ currentLyricText, currentLyricIndex: index })
+      this.setData({
+        currentLyricText,
+        currentLyricIndex: index,
+        lyricScrollTop: 35 * index
+      })
     })
     // 解决拖动进度条之后没有继续监听的bug
     audioContext.onWaiting(() => {

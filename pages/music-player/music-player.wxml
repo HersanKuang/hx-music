@@ -72,10 +72,15 @@
 	</swiper-item>
 
 	<swiper-item>
-		<scroll-view class="lyric-list" scroll-y>
+		<scroll-view
+			class="lyric-list"
+			scroll-y
+			scroll-top="{{lyricScrollTop}}"
+			scroll-with-animation
+		>
 			<block wx:for="{{lyricInfos}}" wx:key="time">
 				<view
-					class="item"
+					class="item {{currentLyricIndex === index ? 'active': ''}}"
 					style="padding-top: {{index === 0 ? (contentHeight/2-100): 0}}px; padding-bottom: {{index === lyricInfos.length - 1 ? (contentHeight/2+66): 0}}px;"
 				>
 					{{item.text}}
