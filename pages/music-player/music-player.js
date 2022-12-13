@@ -66,7 +66,7 @@ Page({
 
       // 2.匹配正确歌词
       if (!this.data.lyricInfos.length) return
-      let index = -1
+      let index = this.data.lyricInfos.length - 1
       for (let i in this.data.lyricInfos) {
         const info = this.data.lyricInfos[i]
         if (info.time > audioContext.currentTime * 1000) {
