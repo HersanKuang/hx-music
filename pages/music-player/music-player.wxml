@@ -59,14 +59,25 @@
 			</view>
 		</view>
 		<view class="controls">
-			<image class="btn mode" src="/assets/images/player/play_order.png"/>
-			<image class="btn prev" src="/assets/images/player/play_prev.png"/>
+			<image
+				class="btn mode"
+				src="/assets/images/player/play_order.png"
+			/>
+			<image
+				class="btn prev"
+				src="/assets/images/player/play_prev.png"
+				bindtap="onPrevBtnTap"
+			/>
 			<image
 				class="btn play"
 				src="/assets/images/player/play_{{isPlaying ? 'pause' : 'resume'}}.png"
 				bindtap="onPlayOrPauseTap"
 			/>
-			<image class="btn next" src="/assets/images/player/play_next.png"/>
+			<image
+				class="btn next"
+				src="/assets/images/player/play_next.png"
+				bindtap="onNextBtnTap"
+			/>
 			<image class="btn list" src="/assets/images/player/play_music.png"/>
 		</view>
 	</swiper-item>

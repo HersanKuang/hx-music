@@ -2,6 +2,7 @@
 import { getMusicBanner, getSongMenuList } from "../../services/music"
 import recommendStore from "../../store/recommendStore"
 import rankingStore, { rankingsMap } from "../../store/rankingStore"
+import playerStore from "../../store/playerStore"
 import { querySelect } from "../../utils/query-select"
 import { hxthrottle } from "../../utils/throttle"
 
@@ -80,6 +81,11 @@ Page({
     wx.navigateTo({
       url: '/pages/detail-song/detail-song?type=recommend',
     })
+  },
+  onSongItemTap(event) {
+    const index = event.currentTarget.dataset.index
+    playerStore.setState('playSongList', this.data.recommendSongs)
+    playerStore.setState('playSongIndex', index)
   },
 
   // ============================= 从Store中获取数据 =============================

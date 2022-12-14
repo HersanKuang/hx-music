@@ -2,6 +2,7 @@
 import rankingStore from "../../store/rankingStore"
 import recommendStore from "../../store/recommendStore"
 import { getPlaylistDetail } from "../../services/music"
+import playerStore from "../../store/playerStore"
 
 Page({
   data: {
@@ -37,6 +38,12 @@ Page({
     this.setData({ songInfo: res.playlist })
   },
 
+  // ======================= wxml事件监听 ==========================
+  onSongItemTap() {
+    playerStore.setState('playSongList', this.data.songInfo.tracks)
+  },
+
+  // ======================= store共享数据 ==========================
   handleRanking(value) {
     this.setData({ songInfo: value })
     wx.setNavigationBarTitle({

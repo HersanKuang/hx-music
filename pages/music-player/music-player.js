@@ -1,6 +1,7 @@
 // pages/music-player/music-player.js
 import { getSongDetail, getSongLyric } from '../../services/player'
 import { parseLyric } from "../../utils/parse-lyric"
+import playerStore from "../../store/playerStore"
 import { hxthrottle } from '../../utils/throttle'
 
 const app = getApp()
@@ -26,7 +27,11 @@ Page({
     isWaiting: false,
     isPlaying: true,
 
-    lyricScrollTop: 0
+    lyricScrollTop: 0,
+
+    playSongIndex: 0,
+    playSongList: [],
+    isFirstPlay: true
   },
   onLoad(options) {
     // 0.获取设备信息
@@ -34,6 +39,25 @@ Page({
 
     // 1.获取传入的id
     const id = options.id
+
+    // 2.根据id播放歌曲
+    this.setupPlaySong(id)
+    
+    // 5.获取store的共享数据
+    playerStore.onStates(['playSongList', 'playSongIndex'], this.getPlaySongInfosHandler)
+  },
+  updateProgress() {
+    // 1.记录当前的时间
+    // 2.修改滑块的时间进度sliderValue
+    const sliderValue = this.data.currentTime / this.data.durationTime * 100
+    this.setData({
+      currentTime: audioContext.currentTime * 1000,
+      sliderValue
+    })
+  },
+
+  // ============================= 播放歌曲 =============================
+  setupPlaySong(id) {
     this.setData({ id })
 
     // 2.请求歌曲相关的数据
@@ -86,21 +110,15 @@ Page({
       })
     })
     // 解决拖动进度条之后没有继续监听的bug
-    audioContext.onWaiting(() => {
-      audioContext.pause()
-    })
-    audioContext.onCanplay(() => {
-      audioContext.play()
-    })
-  },
-  updateProgress() {
-    // 1.记录当前的时间
-    // 2.修改滑块的时间进度sliderValue
-    const sliderValue = this.data.currentTime / this.data.durationTime * 100
-    this.setData({
-      currentTime: audioContext.currentTime * 1000,
-      sliderValue
-    })
+    if (this.data.isFirstPlay) {
+      this.data.isFirstPlay = false
+      audioContext.onWaiting(() => {
+        audioContext.pause()
+      })
+      audioContext.onCanplay(() => {
+        audioContext.play()
+      })
+    }
   },
 
   // ============================= 事件监听 =============================
@@ -146,5 +164,52 @@ Page({
       audioContext.play()
       this.setData({ isPlaying: true })
     }
+  },
+  onPrevBtnTap() {
+    this.changeNewSong(false)
+  },
+  onNextBtnTap() {
+    this.changeNewSong()
+  },
+  changeNewSong(isNext = true) {
+    // 1.获取之前的数据
+    const length = this.data.playSongList.length
+    let index = this.data.playSongIndex
+
+    // 2.根据之前的数据计算最新的索引
+    index = isNext ? index + 1: index - 1
+    if (index === length) index = 0
+    if (index === -1) index = length - 1
+
+    // 3.根据索引获取当前歌曲的信息
+    const newSong = this.data.playSongList[index]
+    // console.log(newSong.id);
+    // 将数据回到初始状态
+    this.setData({
+      currentSong: {},
+      sliderValue: 0,
+      currentTime: 0,
+      durationTime: 0
+    })
+    // 开始播放新的歌曲
+    this.setupPlaySong(newSong.id)
+    
+    // 4.保存最新的索引
+    playerStore.setState('playSongIndex', index)
+  },
+
+
+  // ========================= store共享数据 =====================
+  getPlaySongInfosHandler({ playSongList, playSongIndex }) {
+    if (playSongList) {
+      this.setData({ playSongList })
+    }
+    if (playSongIndex !== undefined) {
+      this.setData({ playSongIndex })
+    }
+  },
+
+  onUnload() {
+    playerStore.offStates(['playSongList', 'playSongIndex'], this.getPlaySongInfosHandler)
   }
 })
