@@ -118,6 +118,9 @@ Page({
       audioContext.onCanplay(() => {
         audioContext.play()
       })
+      audioContext.onEnded(() => {
+        this.changeNewSong()
+      })
     }
   },
 
