@@ -122,6 +122,9 @@ Page({
         audioContext.pause()
       })
       audioContext.onCanplay(() => {
+        if (!this.data.isPlaying) {
+          this.setData({ isPlaying: true })
+        }
         audioContext.play()
       })
       audioContext.onEnded(() => {
