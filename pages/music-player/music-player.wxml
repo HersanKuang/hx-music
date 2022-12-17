@@ -61,7 +61,8 @@
 		<view class="controls">
 			<image
 				class="btn mode"
-				src="/assets/images/player/play_order.png"
+				src="/assets/images/player/play_{{playModeName}}.png"
+				bindtap="onModeBtnTap"
 			/>
 			<image
 				class="btn prev"

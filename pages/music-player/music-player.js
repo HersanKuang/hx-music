@@ -9,6 +9,8 @@ const app = getApp()
 // 创建播放器
 const audioContext = wx.createInnerAudioContext()
 
+const modeNames = ['order', 'repeat', 'random']
+
 Page({
   data: {
     pageTitles: ['歌曲', '歌词'],
@@ -31,7 +33,10 @@ Page({
 
     playSongIndex: 0,
     playSongList: [],
-    isFirstPlay: true
+    isFirstPlay: true,
+
+    playModeIndex: 0, // 0: 顺序播放 1: 单曲循环 2: 随机播放
+    playModeName : 'order'
   },
   onLoad(options) {
     // 0.获取设备信息
@@ -77,6 +82,7 @@ Page({
     })
 
     // 3.播放当前的歌曲
+    audioContext.stop()
     audioContext.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
     audioContext.autoplay = true
 
@@ -169,20 +175,36 @@ Page({
     }
   },
   onPrevBtnTap() {
-    this.changeNewSong(false)
+    this.changeNewSong(false, true)
   },
   onNextBtnTap() {
-    this.changeNewSong()
+    this.changeNewSong(true, true)
   },
-  changeNewSong(isNext = true) {
+  changeNewSong(isNext, click = false) {
     // 1.获取之前的数据
     const length = this.data.playSongList.length
     let index = this.data.playSongIndex
 
     // 2.根据之前的数据计算最新的索引
-    index = isNext ? index + 1: index - 1
-    if (index === length) index = 0
-    if (index === -1) index = length - 1
+    switch (this.data.playModeIndex) {
+      case 0: // 顺序播放
+        index = isNext ? index + 1: index - 1
+        if (index === length) index = 0
+        if (index === -1) index = length - 1
+        break
+      case 1: // 单曲循环
+        if (isNext && click) {
+          index = index + 1
+        } else if (!isNext && click) {
+          index = index - 1
+        }
+        if (index === length) index = 0
+        if (index === -1) index = length - 1
+        break
+      case 2: // 随机播放
+        index = Math.floor(Math.random() * length)
+        break
+    }
 
     // 3.根据索引获取当前歌曲的信息
     const newSong = this.data.playSongList[index]
@@ -199,6 +221,16 @@ Page({
     
     // 4.保存最新的索引
     playerStore.setState('playSongIndex', index)
+  },
+
+  onModeBtnTap() {
+    let modeIndex = this.data.playModeIndex
+    modeIndex = modeIndex + 1
+    if (modeIndex === 3) modeIndex = 0
+    this.setData({
+      playModeIndex: modeIndex,
+      playModeName: modeNames[modeIndex]
+    })
   },
 
 
