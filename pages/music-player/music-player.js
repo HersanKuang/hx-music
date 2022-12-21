@@ -134,6 +134,9 @@ Page({
   },
 
   // ============================= 事件监听 =============================
+  onNavBackTap() {
+    wx.navigateBack()
+  },
   onSwiperChange(event) {
     this.setData({ currentPage: event.detail.current })
   },
