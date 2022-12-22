@@ -128,6 +128,10 @@ Page({
         audioContext.play()
       })
       audioContext.onEnded(() => {
+        // 如果是单曲循环，不需要切换下一首歌
+        if (audioContext.loop) return
+
+        // 切换下一首歌曲
         this.changeNewSong()
       })
     }
@@ -159,7 +163,8 @@ Page({
     audioContext.seek(currentTime / 1000)
     this.setData({ currentTime, isSliderChanging: false, sliderValue: value })
   },
-  onSliderChanging(event) {
+  // 使用节流函数防止滑块频繁滑动造成的页面卡顿
+  onSliderChanging: hxthrottle(function(event) {
     // 1.获取滑动到的位置的value
     const value = event.detail.value
 
@@ -169,7 +174,7 @@ Page({
 
     // 3.当前正在滑动
     this.data.isSliderChanging = true
-  },
+  }, 100, { leading: true, trailing: true }),
 
   onPlayOrPauseTap() {
     if (!audioContext.paused) {
@@ -181,29 +186,21 @@ Page({
     }
   },
   onPrevBtnTap() {
-    this.changeNewSong(false, true)
+    this.changeNewSong()
   },
   onNextBtnTap() {
-    this.changeNewSong(true, true)
+    this.changeNewSong(true)
   },
-  changeNewSong(isNext, click = false) {
+  changeNewSong(isNext = false) {
     // 1.获取之前的数据
     const length = this.data.playSongList.length
     let index = this.data.playSongIndex
 
     // 2.根据之前的数据计算最新的索引
     switch (this.data.playModeIndex) {
+      case 1: // 单曲循环
       case 0: // 顺序播放
         index = isNext ? index + 1: index - 1
-        if (index === length) index = 0
-        if (index === -1) index = length - 1
-        break
-      case 1: // 单曲循环
-        if (isNext && click) {
-          index = index + 1
-        } else if (!isNext && click) {
-          index = index - 1
-        }
         if (index === length) index = 0
         if (index === -1) index = length - 1
         break
@@ -230,9 +227,19 @@ Page({
   },
 
   onModeBtnTap() {
+    // 1.计算新的模式
     let modeIndex = this.data.playModeIndex
     modeIndex = modeIndex + 1
     if (modeIndex === 3) modeIndex = 0
+
+    // 2.设置是否是单曲循环
+    if (modeIndex === 1) {
+      audioContext.loop = true
+    } else {
+      audioContext.loop = false
+    }
+
+    // 3.保存当前的模式
     this.setData({
       playModeIndex: modeIndex,
       playModeName: modeNames[modeIndex]

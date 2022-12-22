@@ -95,7 +95,7 @@
 .music .controls .btn {
 	width: 60rpx;
 	height: 60rpx;
-	margin-bottom: 10rpx;
+	margin-bottom: 16rpx;
 }
 
 .music .controls .btn.mode {
