@@ -13,30 +13,28 @@ const modeNames = ['order', 'repeat', 'random']
 
 Page({
   data: {
-    pageTitles: ['歌曲', '歌词'],
-    currentPage: 0,
-    contentHeight: 0,
     id: 0,
     currentSong: {},
+    currentTime: 0,
+    durationTime: 0,
     lyricInfos: [],
     currentLyricText: '',
     currentLyricIndex: -1,
-
-    currentTime: 0,
-    durationTime: 0,
-    sliderValue: 0,
-    isSliderChanging: false,
-    isWaiting: false,
+    
     isPlaying: true,
-
-    lyricScrollTop: 0,
-
+    
     playSongIndex: 0,
     playSongList: [],
     isFirstPlay: true,
 
-    playModeIndex: 0, // 0: 顺序播放 1: 单曲循环 2: 随机播放
-    playModeName : 'order'
+    sliderValue: 0,
+    isSliderChanging: false,
+    isWaiting: false,
+
+    pageTitles: ['歌曲', '歌词'],
+    currentPage: 0,
+    contentHeight: 0,
+    lyricScrollTop: 0,
   },
   onLoad(options) {
     // 0.获取设备信息
