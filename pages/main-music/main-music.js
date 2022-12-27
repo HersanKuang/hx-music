@@ -22,7 +22,8 @@ Page({
     rankingInfos: {},
 
     // 当前正在播放的歌曲信息
-    currentSong: {}
+    currentSong: {},
+    isPlaying: false
   },
   onLoad() {
     this.fetchMusicBanner()
@@ -41,7 +42,7 @@ Page({
 
     rankingStore.dispatch('fetchRankingDataAction')
 
-    playerStore.onStates(['currentSong'], this.handlePlayInfos)
+    playerStore.onStates(['currentSong', 'isPlaying'], this.handlePlayInfos)
   },
   // 网络请求的封装
   async fetchMusicBanner() {
@@ -92,6 +93,9 @@ Page({
     playerStore.setState('playSongList', this.data.recommendSongs)
     playerStore.setState('playSongIndex', index)
   },
+  onPlayOrPauseBtnTap() {
+    playerStore.dispatch('changeMusicStatusAction')
+  },
 
   // ============================= 从Store中获取数据 =============================
   handleRecommendSongs(value) {
@@ -109,9 +113,12 @@ Page({
       })
     }
   },
-  handlePlayInfos({ currentSong }) {
+  handlePlayInfos({ currentSong, isPlaying }) {
     if (currentSong) {
       this.setData({ currentSong })
+    }
+    if (isPlaying !== undefined) {
+      this.setData({ isPlaying })
     }
   },
 
@@ -120,6 +127,6 @@ Page({
     rankingStore.offState('newRanking', this.getRankingHanlder)
     rankingStore.offState('originRanking', this.getRankingHanlder)
     rankingStore.offState('upRanking', this.getRankingHanlder)
-    playerStore.offStates(['currentSong'], this.handlePlayInfos)
+    playerStore.offStates(['currentSong', 'isPlaying'], this.handlePlayInfos)
   }
 })
