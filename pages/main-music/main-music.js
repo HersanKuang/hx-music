@@ -19,7 +19,10 @@ Page({
     recMenuList: [],
     // 巅峰榜数据
     isRankingData: false,
-    rankingInfos: {}
+    rankingInfos: {},
+
+    // 当前正在播放的歌曲信息
+    currentSong: {}
   },
   onLoad() {
     this.fetchMusicBanner()
@@ -37,6 +40,8 @@ Page({
     // rankingStore.onState('upRanking', this.getRankingHanlder('upRanking'))
 
     rankingStore.dispatch('fetchRankingDataAction')
+
+    playerStore.onStates(['currentSong'], this.handlePlayInfos)
   },
   // 网络请求的封装
   async fetchMusicBanner() {
@@ -104,11 +109,17 @@ Page({
       })
     }
   },
+  handlePlayInfos({ currentSong }) {
+    if (currentSong) {
+      this.setData({ currentSong })
+    }
+  },
 
   onUnload() {
     recommendStore.offState('recommendSongInfo', this.handleRecommendSongs)
     rankingStore.offState('newRanking', this.getRankingHanlder)
     rankingStore.offState('originRanking', this.getRankingHanlder)
     rankingStore.offState('upRanking', this.getRankingHanlder)
+    playerStore.offStates(['currentSong'], this.handlePlayInfos)
   }
 })
