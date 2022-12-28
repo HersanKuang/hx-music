@@ -56,7 +56,11 @@
 <view class="play-bar-placeholder" wx:if="{{currentSong.name || isPlaying}}"></view>
 <view class="play-bar" wx:if="{{currentSong.name || isPlaying}}">
   <view class="left">
-    <image class="album" src="{{currentSong.al.picUrl}}"></image>
+    <image
+      class="album album-anim"
+      src="{{currentSong.al.picUrl}}"
+      style="animation-play-state: {{isPlaying ? 'running' : 'paused'}};"
+    />
     <view class="name">{{currentSong.name}}</view>
   </view>
   <view class="right">
