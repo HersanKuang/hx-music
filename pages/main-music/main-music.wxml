@@ -60,6 +60,7 @@
       class="album album-anim"
       src="{{currentSong.al.picUrl}}"
       style="animation-play-state: {{isPlaying ? 'running' : 'paused'}};"
+      bindtap="onPlayBarAlbumTap"
     />
     <view class="name">{{currentSong.name}}</view>
   </view>

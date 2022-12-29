@@ -96,6 +96,11 @@ Page({
   onPlayOrPauseBtnTap() {
     playerStore.dispatch('changeMusicStatusAction')
   },
+  onPlayBarAlbumTap() {
+    wx.navigateTo({
+      url: '/pages/music-player/music-player',
+    })
+  },
 
   // ============================= 从Store中获取数据 =============================
   handleRecommendSongs(value) {

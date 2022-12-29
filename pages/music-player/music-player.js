@@ -28,7 +28,9 @@ Page({
     const id = options.id
 
     // 2.根据id播放歌曲    
-    playerStore.dispatch('playMusicWithSongIdAction', id)
+    if (id) {
+      playerStore.dispatch('playMusicWithSongIdAction', id)
+    }
     
     // 3.获取store的共享数据
     playerStore.onStates(['playSongList', 'playSongIndex'], this.getPlaySongInfosHandler)
