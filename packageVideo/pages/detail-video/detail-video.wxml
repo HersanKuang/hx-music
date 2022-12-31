@@ -1,4 +1,4 @@
-<wxs src="../../utils/format.wxs" module="format"></wxs>
+<wxs src="../../../utils/format.wxs" module="format"></wxs>
 <!-- 1.video组件播放视频 -->
 <video
 	class="video"

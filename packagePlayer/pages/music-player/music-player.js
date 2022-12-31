@@ -1,6 +1,6 @@
 // pages/music-player/music-player.js
-import playerStore, { audioContext } from "../../store/playerStore"
-import { hxthrottle } from '../../utils/throttle'
+import playerStore, { audioContext } from "../../../store/playerStore"
+import { hxthrottle } from '../../../utils/throttle'
 
 const app = getApp()
 const modeNames = ['order', 'repeat', 'random']

@@ -61,25 +61,25 @@
 		<view class="controls">
 			<image
 				class="btn mode"
-				src="/assets/images/player/play_{{playModeName}}.png"
+				src="/packagePlayer/assets/images/player/play_{{playModeName}}.png"
 				bindtap="onModeBtnTap"
 			/>
 			<image
 				class="btn prev"
-				src="/assets/images/player/play_prev.png"
+				src="/packagePlayer/assets/images/player/play_prev.png"
 				bindtap="onPrevBtnTap"
 			/>
 			<image
 				class="btn play"
-				src="/assets/images/player/play_{{isPlaying ? 'pause' : 'resume'}}.png"
+				src="/packagePlayer/assets/images/player/play_{{isPlaying ? 'pause' : 'resume'}}.png"
 				bindtap="onPlayOrPauseTap"
 			/>
 			<image
 				class="btn next"
-				src="/assets/images/player/play_next.png"
+				src="/packagePlayer/assets/images/player/play_next.png"
 				bindtap="onNextBtnTap"
 			/>
-			<image class="btn list" src="/assets/images/player/play_music.png"/>
+			<image class="btn list" src="/packagePlayer/assets/images/player/play_music.png"/>
 		</view>
 	</swiper-item>
 
