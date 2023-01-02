@@ -22,6 +22,15 @@
       ]
     }
   ],
+  "preloadRule": {
+    "pages/main-music/main-music": {
+      "network": "all",
+      "packages": [
+        "packagePlayer",
+        "packageVideo"
+      ]
+    }
+  },
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
